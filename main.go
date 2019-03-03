@@ -4,14 +4,14 @@ import (
 	"log"
 
 	"github.com/astaxie/beego"
-	"github.com/louisevanderlith/mango/app/shop/routers"
-	"github.com/louisevanderlith/mango/pkg"
-	"github.com/louisevanderlith/mango/pkg/enums"
+	"github.com/louisevanderlith/mango"
+	"github.com/louisevanderlith/mango/enums"
+	"github.com/louisevanderlith/shop/routers"
 )
 
 func main() {
 	// Register with router
-	mode := beego.BConfig.RunMode
+	mode := os.Getenv("RUNMODE")
 	name := beego.BConfig.AppName
 	srv := mango.NewService(mode, name, enums.APP)
 
