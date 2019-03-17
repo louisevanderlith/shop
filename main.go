@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/astaxie/beego"
 	"github.com/louisevanderlith/mango"
@@ -21,7 +22,15 @@ func main() {
 	if err != nil {
 		log.Print("Register: ", err)
 	} else {
+		err = mango.UpdateTheme(srv.ID)
+
+		if err != nil {
+			panic(err)
+		}
+
 		routers.Setup(srv)
+
+		beego.SetStaticPath("/dist", "dist")
 		beego.Run()
 	}
 }
