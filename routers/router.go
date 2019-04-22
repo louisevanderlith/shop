@@ -2,8 +2,10 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/louisevanderlith/mango/app/shop/controllers"
+	"github.com/louisevanderlith/mango"
 	"github.com/louisevanderlith/mango/control"
+	secure "github.com/louisevanderlith/secure/core"
+	"github.com/louisevanderlith/shop/controllers"
 )
 
 func Setup(s *mango.Service) {
@@ -15,7 +17,7 @@ func Setup(s *mango.Service) {
 func EnableFilter(s *mango.Service) *control.ControllerMap {
 	ctrlmap := control.CreateControlMap(s)
 
-	emptyMap := make(control.ActionMap)
+	emptyMap := make(secure.ActionMap)
 
 	ctrlmap.Add("/", emptyMap)
 
