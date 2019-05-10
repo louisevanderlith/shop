@@ -11,7 +11,14 @@ import (
 func Setup(s *mango.Service) {
 	ctrlmap := EnableFilter(s)
 
-	beego.Router("/", controllers.NewDefaultCtrl(ctrlmap))
+	siteName := beego.AppConfig.String("defaultsite")
+	theme, err := mango.GetDefaultTheme(ctrlmap.GetInstanceID(), siteName)
+
+	if err != nil {
+		panic(err)
+	}
+
+	beego.Router("/", controllers.NewDefaultCtrl(ctrlmap, theme))
 }
 
 func EnableFilter(s *mango.Service) *control.ControllerMap {
