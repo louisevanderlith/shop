@@ -12,3 +12,9 @@
 *.out
 
 shop
+
+#Dart
+.dart_tool
+build
+pubspec.lock
+.packages
