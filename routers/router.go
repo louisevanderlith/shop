@@ -1,34 +1,13 @@
 package routers
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/louisevanderlith/mango"
-	"github.com/louisevanderlith/mango/control"
-	secure "github.com/louisevanderlith/secure/core"
+	"github.com/louisevanderlith/droxolite"
+	"github.com/louisevanderlith/droxolite/roletype"
 	"github.com/louisevanderlith/shop/controllers"
 )
 
-func Setup(s *mango.Service) {
-	ctrlmap := EnableFilter(s)
-
-	siteName := beego.AppConfig.String("defaultsite")
-	theme, err := mango.GetDefaultTheme(ctrlmap.GetInstanceID(), siteName)
-
-	if err != nil {
-		panic(err)
-	}
-
-	beego.Router("/", controllers.NewDefaultCtrl(ctrlmap, theme))
-}
-
-func EnableFilter(s *mango.Service) *control.ControllerMap {
-	ctrlmap := control.CreateControlMap(s)
-
-	emptyMap := make(secure.ActionMap)
-
-	ctrlmap.Add("/", emptyMap)
-
-	beego.InsertFilter("/*", beego.BeforeRouter, ctrlmap.FilterUI)
-
-	return ctrlmap
+func Setup(e *droxolite.Epoxy) {
+	deftCtrl := &controllers.DefaultController{}
+	deftGroup := droxolite.NewRouteGroup("", deftCtrl)
+	deftGroup.AddRoute("/", "GET", roletype.Unknown, deftCtrl.Get)
 }
