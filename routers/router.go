@@ -9,5 +9,5 @@ import (
 func Setup(e *droxolite.Epoxy) {
 	deftCtrl := &controllers.DefaultController{}
 	deftGroup := droxolite.NewRouteGroup("", deftCtrl)
-	deftGroup.AddRoute("/", "GET", roletype.Unknown, deftCtrl.Get)
+	deftGroup.AddRoute("Home", "/", "GET", roletype.Unknown, deftCtrl.Get)
 }

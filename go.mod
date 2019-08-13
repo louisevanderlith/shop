@@ -1,3 +1,3 @@
 module github.com/louisevanderlith/shop
 
-require github.com/louisevanderlith/droxolite v1.2.4
+require github.com/louisevanderlith/droxolite v1.2.9
