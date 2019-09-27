@@ -26,14 +26,12 @@ COPY pubspec.yaml pubspec.yaml
 RUN pub get
 
 COPY web ./web
-#COPY lib ./lib
 RUN webdev build
 
 FROM alpine:latest
 
 COPY --from=builder /box/shop .
 COPY --from=pyltjie /arrow/build/*.dart.js dist/js/
-COPY conf conf
 COPY views views
 
 RUN mkdir -p /views/_shared
