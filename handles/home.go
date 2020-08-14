@@ -5,16 +5,13 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-
-	"github.com/louisevanderlith/droxolite/context"
 )
 
 func Index(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Index",tmpl)
+	pge := mix.PreparePage("Home", tmpl, "./views/index.html")
 
 	return func(w http.ResponseWriter, r *http.Request) {
-
-		err := mix.Write(w, pge.Create(r,nil))
+		err := mix.Write(w, pge.Create(r, nil))
 
 		if err != nil {
 			log.Println(err)

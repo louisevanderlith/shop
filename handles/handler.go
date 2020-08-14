@@ -2,13 +2,13 @@ package handles
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/louisevanderlith/droxolite"
+	"github.com/louisevanderlith/droxolite/drx"
 	"github.com/louisevanderlith/kong"
 	"net/http"
 )
 
-func SetupRoutes(clnt, scrt, secureUrl string) http.Handler {
-	tmpl, err := droxolite.LoadTemplate("./views")
+func SetupRoutes(clnt, scrt, securityUrl, authorityUrl string) http.Handler {
+	tmpl, err := drx.LoadTemplate("./views")
 
 	if err != nil {
 		panic(err)
@@ -20,7 +20,7 @@ func SetupRoutes(clnt, scrt, secureUrl string) http.Handler {
 	fs := http.FileServer(distPath)
 	r.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", fs))
 
-	r.HandleFunc("/", kong.ClientMiddleware(http.DefaultClient, clnt, scrt, secureUrl, "", Index(tmpl), "cms.content.view")).Methods(http.MethodGet)
+	r.HandleFunc("/", kong.ClientMiddleware(http.DefaultClient, clnt, scrt, securityUrl, authorityUrl, Index(tmpl), map[string]bool{"cms.content.view": true})).Methods(http.MethodGet)
 
 	return r
 }
