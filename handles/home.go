@@ -8,9 +8,10 @@ import (
 )
 
 func Index(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Home", tmpl, "./views/index.html")
+	pge := mix.PreparePage("Index", tmpl, "./views/index.html")
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		pge.ChangeTitle("Shop")
 		err := mix.Write(w, pge.Create(r, nil))
 
 		if err != nil {
