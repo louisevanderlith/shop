@@ -27,7 +27,7 @@ RUN pub get
 COPY web ./web
 RUN webdev build
 
-FROM alpine:latest
+FROM alpine:3.12.0
 
 COPY --from=builder /box/shop .
 COPY --from=pyltjie /arrow/build/*.dart.js dist/js/
