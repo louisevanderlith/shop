@@ -1,0 +1,61 @@
+{{template "master.html" .}}
+{{define "layoutcontent"}}
+<section class="section" id="about">
+    <div class="columns has-same-height is-gapless">
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="title is-4">{{Your cart}}</h3>
+                    <p>
+                        Your items
+                    </p>
+
+                    <div class="content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>QTY</th>
+                                    <th>Item</th>
+                                    <th>Price per item</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>QTY</th>
+                                    <th>Item</th>
+                                    <th>Price per item</th>
+                                    <th>Total</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <th>{{qty}}</th>
+                                    <td>{{item description}}</td>
+                                    <td>{{Unit price}}</td>
+                                    <td>{{Item total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Grand Total</th>
+                                    <td>{{Total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{end}}
