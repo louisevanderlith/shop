@@ -21,7 +21,12 @@ func SetupRoutes(clnt, scrt, securityUrl, managerUrl, authorityUrl string) http.
 	r.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", fs))
 
 	clntIns := middle.NewClientInspector(clnt, scrt, http.DefaultClient, securityUrl, managerUrl, authorityUrl)
-	r.HandleFunc("/", clntIns.Middleware(Index(tmpl), map[string]bool{"stock.cars.search": true, "stock.parts.search": true, "stock.properties.search": true})).Methods(http.MethodGet)
+	r.HandleFunc("/callback", clntIns.Callback).Queries("state", "{state}", "token", "{token}").Methods(http.MethodGet)
+
+	r.HandleFunc("/", clntIns.Middleware(Index(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
+	r.HandleFunc("/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchAds(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
+	r.HandleFunc("/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchAds(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
+	r.HandleFunc("/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewAd(tmpl), map[string]bool{"stock.clothing.view": true})).Methods(http.MethodGet)
 
 	return r
 }
