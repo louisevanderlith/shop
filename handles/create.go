@@ -7,11 +7,11 @@ import (
 	"net/http"
 )
 
-func Checkout(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Checkout", tmpl, "./views/checkout.html")
+func Create(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Create", tmpl, "./views/uploads.html")
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		pge.ChangeTitle("Checkout")
+		pge.ChangeTitle("Create")
 		err := mix.Write(w, pge.Create(r, nil))
 
 		if err != nil {

@@ -1,61 +1,30 @@
 {{template "master.html" .}}
 {{define "layoutcontent"}}
-    <section class="section" id="about">
-        <div class="columns has-same-height is-gapless">
-            <div class="column">
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="title is-4">{{.}}</h3>
-                        <p>
-                            Your items
-                        </p>
-
-                        <div class="content">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>QTY</th>
-                                    <th>Item</th>
-                                    <th>Price per item</th>
-                                    <th>Total</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>QTY</th>
-                                    <th>Item</th>
-                                    <th>Price per item</th>
-                                    <th>Total</th>
-                                </tr>
-                                </tfoot>
-                                <tbody>
-                                <tr>
-                                    <th>56</th>
-                                    <td>afdfads</td>
-                                    <td>asdfasdf</td>
-                                    <td>asdfasda</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>Grand Total</th>
-                                    <td>9999</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <br>
-                    </div>
+<section class="container">
+    <div class="columns is-multiline">
+        <div class="column">
+            <div class="columns is-multiline">
+                <div class="column is-2">
+                    <figure class="image is-128x128">
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                </div>
+                <div class="column is-6">
+                    Item is lekker
+                </div>
+                <div class="column is-4">
+                    qty
                 </div>
             </div>
         </div>
-    </section>
-{{end}}
+        <div class="column is-3 right-image " data-aos="fade-left">
+            <div class="content">
+                <p class="sub-title">Cart Summary</p>
+                <p class="content">Total</p>
+                <a class="button">
+                    Proceed
+                </a>
+            </div>
+        </div>
+    </div>
+    {{end}}

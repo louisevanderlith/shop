@@ -28,5 +28,9 @@ func SetupRoutes(clnt, scrt, securityUrl, managerUrl, authorityUrl string) http.
 	r.HandleFunc("/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchAds(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
 	r.HandleFunc("/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewAd(tmpl), map[string]bool{"stock.clothing.view": true})).Methods(http.MethodGet)
 
+	r.HandleFunc("/cart", clntIns.Middleware(Cart(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
+
+	r.HandleFunc("/create", clntIns.Middleware(Create(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
+
 	return r
 }

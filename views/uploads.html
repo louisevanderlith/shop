@@ -1,13 +1,17 @@
-<section>
+{{template "master.html" .}}
+{{define "layoutcontent"}}
+<section class="section">
     <div class="container has-text-centered">
         <h1 class="title is-1">Product Uploads</h1>
-        <div class="columns is-variable ">
-            <div class="column is-one-thirds has-text-left">
+        <div class="columns">
+            <div class="column is-12 has-text-left">
                 <div class="content">
                     FOTOS OPLAAI
                 </div>
             </div>
-            <div class="column is-one-third has-text-left">
+        </div>
+        <div class="columns is-variable ">
+            <div class="column is-two-thirds has-text-left">
                 <div class="content">
                     <h4 class="subtitle colourSecondary has-text-left"><b>Product category</b></h4>
                     <div class="control has-text-centered is-medium">
@@ -71,6 +75,7 @@
                 </div>
             </div>
             <div class="column is-one-third has-text-left">
+                <h4 class="subtitle colourSecondary has-text-left"><b>Product Info</b></h4>
                 <div class="field">
                     <label class="label">Header</label>
                     <div class="control">
@@ -97,3 +102,4 @@
         </div>
     </div>
 </section>
+{{end}}
