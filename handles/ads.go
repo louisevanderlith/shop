@@ -4,7 +4,7 @@ import (
 	"github.com/louisevanderlith/droxolite/drx"
 	"github.com/louisevanderlith/droxolite/mix"
 	"github.com/louisevanderlith/husk/keys"
-	"github.com/louisevanderlith/shop/resources"
+	"github.com/louisevanderlith/stock/api"
 	"html/template"
 	"log"
 	"net/http"
@@ -14,12 +14,11 @@ func GetAds(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
 
 	return func(w http.ResponseWriter, r *http.Request) {
-
-		src := resources.APIResource(http.DefaultClient, r)
-		result, err := src.FetchAllStock("clothing", "A10")
+		clnt := CredConfig.Client(r.Context())
+		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], "A10")
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Fetch Clothing Error", err)
 			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
@@ -42,10 +41,8 @@ func SearchAds(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
 	return func(w http.ResponseWriter, r *http.Request) {
 		pagesize := drx.FindParam(r, "pagesize")
-
-		src := resources.APIResource(http.DefaultClient, r)
-
-		result, err := src.FetchAllStock("clothing", pagesize)
+		clnt := CredConfig.Client(r.Context())
+		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], pagesize)
 
 		if err != nil {
 			log.Println(err)
@@ -73,8 +70,8 @@ func ViewAd(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		src := resources.APIResource(http.DefaultClient, r)
-		result, err := src.FetchStock("clothing", key.String())
+		clnt := CredConfig.Client(r.Context())
+		result, err := api.FetchClothing(clnt, Endpoints["stock"], key)
 
 		if err != nil {
 			log.Println(err)
@@ -85,7 +82,7 @@ func ViewAd(tmpl *template.Template) http.HandlerFunc {
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }

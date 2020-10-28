@@ -3,7 +3,6 @@ package resources
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/louisevanderlith/droxolite/drx"
 	"net/http"
 	"strings"
 )
@@ -20,18 +19,12 @@ func APIResource(clnt *http.Client, r *http.Request) *Source {
 	}
 }
 
-func (src *Source) get(api, path string, params ...string) (interface{}, error) {
-	tkninfo := drx.GetIdentity(src.req)
-	url, err := tkninfo.GetResourceURL(api)
-
-	if err != nil {
-		return nil, err
-	}
+func (src *Source) get(url, token, api, path string, params ...string) (interface{}, error) {
 
 	fullURL := fmt.Sprintf("%s/%s/%s", url, path, strings.Trim(strings.Join(params, "/"), "/"))
 
 	req, err := http.NewRequest(http.MethodGet, fullURL, nil)
-	req.Header.Set("Authorization", "Bearer "+drx.GetToken(src.req))
+	req.Header.Set("Authorization", "Bearer "+token)
 
 	if err != nil {
 		return nil, err
