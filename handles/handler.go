@@ -14,7 +14,7 @@ import (
 
 var (
 	CredConfig *clientcredentials.Config
-	Endpoints map[string]string
+	Endpoints  map[string]string
 	//StockURL   string
 )
 
@@ -75,9 +75,8 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 	r.HandleFunc("/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", open.LoginMiddleware(v, SearchAds(tmpl))).Methods(http.MethodGet)
 	r.HandleFunc("/{key:[0-9]+\\x60[0-9]+}", open.LoginMiddleware(v, ViewAd(tmpl))).Methods(http.MethodGet)
 
-	r.HandleFunc("/cart", clntIns.Middleware(Cart(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
-
-	r.HandleFunc("/create", clntIns.Middleware(Create(tmpl), map[string]bool{"stock.clothing.search": true})).Methods(http.MethodGet)
+	r.HandleFunc("/cart", open.LoginMiddleware(v, Cart(tmpl))).Methods(http.MethodGet)
+	r.HandleFunc("/create", open.LoginMiddleware(v, Create(tmpl))).Methods(http.MethodGet)
 
 	return r
 }
