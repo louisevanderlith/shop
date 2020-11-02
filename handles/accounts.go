@@ -3,68 +3,67 @@ package handles
 import (
 	"github.com/louisevanderlith/droxolite/drx"
 	"github.com/louisevanderlith/droxolite/mix"
+	"github.com/louisevanderlith/funds/api"
 	"github.com/louisevanderlith/husk/keys"
-	"github.com/louisevanderlith/stock/api"
 	"html/template"
 	"log"
 	"net/http"
 )
 
-func GetAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+func GetAccounts(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Accounts", tmpl, "./views/funds/accounts.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], "A10")
+		result, err := api.FetchAllAccounts(clnt, Endpoints["fund"], "A10")
 
 		if err != nil {
-			log.Println("Fetch Clothing Error", err)
+			log.Println("Fetch Accounts Error", err)
 			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 
-		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusBadRequest)
-			return
-		}
-
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
 
-func SearchAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+func SearchAccounts(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Accounts", tmpl, "./views/funds/accounts.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
-		pagesize := drx.FindParam(r, "pagesize")
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], pagesize)
+		result, err := api.FetchAllAccounts(clnt, Endpoints["fund"], drx.FindParam(r, "pagesize"))
 
 		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusBadRequest)
+			log.Println("Fetch Accounts Error", err)
+			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
 
-func ViewAd(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/adview.html")
+func ViewAccounts(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Accounts View", tmpl, "./views/funds/accountsView.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
@@ -76,11 +75,11 @@ func ViewAd(tmpl *template.Template) http.HandlerFunc {
 		}
 
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchClothing(clnt, Endpoints["stock"], key)
+		result, err := api.FetchAccount(clnt, Endpoints["fund"], key)
 
 		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusNotFound)
+			log.Println("Fetch Account Error", err)
+			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 

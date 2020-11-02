@@ -7,16 +7,17 @@ import (
 	"net/http"
 )
 
-func Checkout(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Checkout", tmpl, "./views/checkout.html")
+func GetSubmissions(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Submissions", tmpl, "./views/quote/submissions.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
-		pge.ChangeTitle("Checkout")
 		err := mix.Write(w, pge.Create(r, nil))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }

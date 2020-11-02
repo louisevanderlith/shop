@@ -10,77 +10,75 @@ import (
 	"net/http"
 )
 
-func GetAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+func GetProperties(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Properties", tmpl, "./views/stock/properties.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], "A10")
+		result, err := api.FetchAllProperties(clnt, Endpoints["stock"], "A10")
 
 		if err != nil {
-			log.Println("Fetch Clothing Error", err)
+			log.Println("Fetch Properties Error", err)
 			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 
-		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusBadRequest)
-			return
-		}
-
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
 
-func SearchAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+func SearchProperties(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Properties", tmpl, "./views/stock/properties.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
-		pagesize := drx.FindParam(r, "pagesize")
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], pagesize)
+		result, err := api.FetchAllProperties(clnt, Endpoints["stock"], drx.FindParam(r, "pagesize"))
 
 		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusBadRequest)
+			log.Println("Fetch Properties", err)
+			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
 
-func ViewAd(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/adview.html")
+func ViewProperty(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Property View", tmpl, "./views/stock/propertyview.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
-
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Parse Key Error", err)
 			http.Error(w, "", http.StatusBadRequest)
 			return
 		}
 
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchClothing(clnt, Endpoints["stock"], key)
+		result, err := api.FetchProperty(clnt, Endpoints["stock"], key)
 
 		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusNotFound)
+			log.Println("Fetch Property Error", err)
+			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 

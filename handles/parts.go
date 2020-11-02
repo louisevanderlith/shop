@@ -10,77 +10,74 @@ import (
 	"net/http"
 )
 
-func GetAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+func GetParts(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Parts", tmpl, "./views/stock/parts.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], "A10")
+		result, err := api.FetchAllParts(clnt, Endpoints["stock"], "A10")
 
 		if err != nil {
-			log.Println("Fetch Clothing Error", err)
+			log.Println("Fetch Parts Error", err)
 			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 
-		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusBadRequest)
-			return
-		}
-
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
 
-func SearchAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+func SearchParts(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Parts", tmpl, "./views/stock/parts.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
-		pagesize := drx.FindParam(r, "pagesize")
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], pagesize)
+		result, err := api.FetchAllParts(clnt, Endpoints["stock"], drx.FindParam(r, "pagesize"))
 
 		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusBadRequest)
+			log.Println("Fetch Parts Error", err)
+			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
 
-func ViewAd(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/adview.html")
+func ViewPart(tmpl *template.Template) http.HandlerFunc {
+	pge := mix.PreparePage("Part View", tmpl, "./views/stock/partview.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
-
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Parse Key Error", err)
 			http.Error(w, "", http.StatusBadRequest)
 			return
 		}
-
 		clnt := CredConfig.Client(r.Context())
-		result, err := api.FetchClothing(clnt, Endpoints["stock"], key)
+		result, err := api.FetchPart(clnt, Endpoints["stock"], key)
 
 		if err != nil {
-			log.Println(err)
-			http.Error(w, "", http.StatusNotFound)
+			log.Println("Fetch Part Error", err)
+			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
 
