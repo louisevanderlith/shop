@@ -43,7 +43,7 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 		ClientID:     clientId,
 		ClientSecret: clientSecret,
 		TokenURL:     provider.Endpoint().TokenURL,
-		Scopes:       []string{oidc.ScopeOpenID, "theme"},
+		Scopes:       []string{oidc.ScopeOpenID, "theme", "folio"},
 	}
 
 	err = api.UpdateTemplate(CredConfig.Client(ctx), endpoints["theme"])

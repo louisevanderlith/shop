@@ -13,6 +13,8 @@ import (
 func GetCars(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Cars", tmpl, "./views/stock/cars.html")
 	pge.AddMenu(FullMenu())
+	pge.AddModifier(mix.EndpointMod(Endpoints))
+	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
 	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 		clnt := CredConfig.Client(r.Context())

@@ -38,9 +38,10 @@ func SearchCredits(tmpl *template.Template) http.HandlerFunc {
 
 func ViewCredits(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("CreditsView", tmpl, "./views/xchange/creditview.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
-
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		//key, err := keys.ParseKey(drx.FindParam(r, "key"))

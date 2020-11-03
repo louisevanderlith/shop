@@ -8,7 +8,7 @@ import (
 )
 
 func GetSubmissions(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Submissions", tmpl, "./views/quote/submissions.html")
+	pge := mix.PreparePage("Submissions", tmpl, "./views/submissions.html")
 	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))

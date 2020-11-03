@@ -12,8 +12,10 @@ import (
 
 func GetAds(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 		clnt := CredConfig.Client(r.Context())
 		result, err := api.FetchAllClothing(clnt, Endpoints["stock"], "A10")
@@ -40,8 +42,10 @@ func GetAds(tmpl *template.Template) http.HandlerFunc {
 
 func SearchAds(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 		pagesize := drx.FindParam(r, "pagesize")
 		clnt := CredConfig.Client(r.Context())
@@ -63,8 +67,10 @@ func SearchAds(tmpl *template.Template) http.HandlerFunc {
 
 func ViewAd(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Ads", tmpl, "./views/adview.html")
+	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
 	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
