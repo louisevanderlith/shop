@@ -1,105 +1,137 @@
-{{template "master.html" .}}
-{{define "layoutcontent"}}
+{{template "master.html" .}} {{define "layoutcontent"}}
 <section class="section">
-    <div class="container has-text-centered">
-        <h1 class="title is-1">Product Uploads</h1>
-        <div class="columns">
-            <div class="column is-12 has-text-left">
-                <div class="content">
-                    FOTOS OPLAAI
-                </div>
-            </div>
-        </div>
-        <div class="columns is-variable ">
-            <div class="column is-two-thirds has-text-left">
-                <div class="content">
-                    <h4 class="subtitle colourSecondary has-text-left"><b>Product category</b></h4>
-                    <div class="control has-text-centered is-medium">
-                        <div class="select has-text-centered is-fullwidth">
-                            <select id="ddlCategory" class="is-hovered">
-                                <option class="ddlt" disabled selected hidden>Select category...</option>
-                                <option>Head Protection</option>
-                                <option>Eye Protection</option>
-                                <option>Hearing Protection</option>
-                                <option>Respiratory Protection</option>
-                                <option>Hand Protection</option>
-                                <option>Overalls</option>
-                                <option>Reflective clothing</option>
-                                <option>Waist Protection</option>
-                                <option>Safety Harnesses & PVC Aprons</option>
-                                <option>Security Workwear</option>
-                                <option>Disposable workwear</option>
-                                <option>Freezer & Rainwear</option>
-                                <option>Other Clothing</option>
-                                <option>Welding Accesories</option>
-                                <option>Safety Footwear & Gumboots</option>
-                                <option>First Aid Kits</option>
-                                <option>Road Safety Equipment</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <h4 class="subtitle colourSecondary has-text-left"><b>Product type</b></h4>
-                    <div class="control has-text-centered is-medium">
-                        <div class="select has-text-centered is-fullwidth">
-                            <select id="ddlType" class="is-hovered">
-                                <option class="ddlt" disabled selected hidden>Select Type...</option>
-                                <option>Mens Shirt/Tops/Jackets</option>
-                                <option>Mens Pants</option>
-                                <option>Ladies Shirt/Top/Jacket</option>
-                                <option>Ladies Pants</option>
-                                <option>Overalls</option>
-                                <option>Shoes</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="control has-text-centered is-medium">
-                        <div class="select has-text-centered is-fullwidth">
-                            <select id="ddlSize" class="is-hovered">
-                                <option class="ddlt" disabled selected hidden>Select Size...</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="control has-text-centered is-medium">
-                        <div class="select has-text-centered is-fullwidth">
-                            <select id="ddlColour" class="is-hovered">
-                                <option class="ddlt" disabled selected hidden>Select Colour...</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="column is-one-third has-text-left">
-                <h4 class="subtitle colourSecondary has-text-left"><b>Product Info</b></h4>
-                <div class="field">
-                    <label class="label">Header</label>
-                    <div class="control">
-                        <input class="input is-medium" type="text">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Price</label>
-                    <div class="control">
-                        <input class="input is-medium" type="text">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Product description</label>
-                    <div class="control">
-                        <textarea class="textarea is-medium"></textarea>
-                    </div>
-                </div>
-                <div class="control">
-                    <button type="submit" class="button is-link is-fullwidth has-text-weight-medium is-medium">Add
-                        Product</button>
-                </div>
-            </div>
-        </div>
+  <div class="container has-text-centered">
+    <h1 class="title is-1">Product Uploads</h1>
+    <div class="columns">
+      <div class="column is-12 has-text-left">
+        <div class="content">FOTOS OPLAAI</div>
+      </div>
     </div>
+    <div class="columns is-variable">
+      <div class="column is-two-thirds has-text-left">
+        <div class="content">
+          <h4 class="subtitle colourSecondary has-text-left">
+            <b>Product category</b>
+          </h4>
+          <div class="control has-text-centered is-medium">
+            <div class="select has-text-centered is-fullwidth">
+              <select id="ddlCategory" class="is-hovered">
+                <option class="ddlt" disabled selected hidden>
+                  Select category...
+                </option>
+                <option>Head Protection</option>
+                <option>Eye Protection</option>
+                <option>Hearing Protection</option>
+                <option>Respiratory Protection</option>
+                <option>Hand Protection</option>
+                <option>Overalls</option>
+                <option>Reflective clothing</option>
+                <option>Waist Protection</option>
+                <option>Safety Harnesses & PVC Aprons</option>
+                <option>Security Workwear</option>
+                <option>Disposable workwear</option>
+                <option>Freezer & Rainwear</option>
+                <option>Other Clothing</option>
+                <option>Welding Accesories</option>
+                <option>Safety Footwear & Gumboots</option>
+                <option>First Aid Kits</option>
+                <option>Road Safety Equipment</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <h4 class="subtitle colourSecondary has-text-left">
+            <b>Product type</b>
+          </h4>
+          <div class="control has-text-centered is-medium">
+            <div class="select has-text-centered is-fullwidth">
+              <select id="ddlType" class="is-hovered">
+                <option class="ddlt" disabled selected hidden>
+                  Select Type...
+                </option>
+                <option>Mens Shirt/Tops/Jackets</option>
+                <option>Mens Pants</option>
+                <option>Ladies Shirt/Top/Jacket</option>
+                <option>Ladies Pants</option>
+                <option>Overalls</option>
+                <option>Shoes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="control has-text-centered is-medium">
+            <div class="select has-text-centered is-fullwidth">
+              <select id="ddlSize" class="is-hovered">
+                <option class="ddlt" disabled selected hidden>
+                  Select Size...
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="control has-text-centered is-medium">
+            <div class="select has-text-centered is-fullwidth">
+              <select id="ddlColour" class="is-hovered">
+                <option class="ddlt" disabled selected hidden>
+                  Select Colour...
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-third has-text-left">
+        <h4 class="subtitle colourSecondary has-text-left">
+          <b>Product Info</b>
+        </h4>
+        <div class="field">
+          <label class="label">Header</label>
+          <div class="control">
+            <input class="input is-medium" type="text" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Price</label>
+          <div class="control">
+            <input class="input is-medium" type="text" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Product Heading</label>
+          <div class="control">
+            <textarea class="textarea is-medium"></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Product description</label>
+          <div class="control">
+            <textarea class="textarea is-medium"></textarea>
+          </div>
+        </div>
+        <div class="control">
+          <button
+            type="submit"
+            class="button is-link is-fullwidth has-text-weight-medium is-medium"
+          >
+            Add Product
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 {{end}}
+
+
+
+<!--
+    Update QTY?
+    Add tag & diable button if stock == 0
+    Warranties
+    Refund policies
+    Delivery eta
+    search
+-->

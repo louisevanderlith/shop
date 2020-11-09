@@ -1,65 +1,77 @@
-{{template "master.html" .}}
-{{define "layoutcontent"}}
-    <div class="section-light about-me" id="about-me">
-        <div class="container">
-            <div class="columns is-multiline">
-                <div class="column is-6 has-vertically-aligned-content" data-aos="fade-right" style="height: 400px;">
-                    **Slideshow category**
-                </div>
-                <div class="column is-6" data-aos="fade-left">
-                    <div class="content">
-                        <p>
-                            ***AD OOR SALTY***
-                        </p>
-                    </div>
-                </div>
-            </div>
+{{template "master.html" .}} {{define "layoutcontent"}}
+<div class="section-light about-me" id="about-me">
+  <div class="container">
+    <div class="columns is-multiline">
+      <div
+        class="column is-6 has-vertically-aligned-content"
+        data-aos="fade-right"
+        style="height: 400px"
+      >
+        <figure class="image is-16by9">
+          <img src="https://bulma.io/images/placeholders/640x360.png" />
+        </figure>
+        <div class="column is-6" data-aos="fade-left">
+          <div class="content">
+            <figure class="image is-16by9">
+              <img src="https://bulma.io/images/placeholders/640x360.png" />
+            </figure>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="section">
-        <div class="container">
-            ----
-        </div>
-    </div>
+  </div>
+  <div class="section">
+    <div class="container">----</div>
+  </div>
 
-    <div class="section">
-        <div class="container">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input class="input has-text-centered" type="search" placeholder="find your dream car">
-                </div>
-                <div class="control">
-                    <a class="button is-info">Search</a>
-                </div>
-            </div>
+  <div class="section">
+    <div class="container">
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <input
+            class="input has-text-centered"
+            type="search"
+            placeholder="find your dream car"
+          />
         </div>
+        <div class="control">
+          <a class="button is-info">Search</a>
+        </div>
+      </div>
     </div>
-    {{.}}
-    <section class="container">
+  </div>
+  {{.}}
+  <section class="container">
+    <div class="columns is-multiline">
+      <div class="column">
         <div class="columns is-multiline">
-            <div class="column">
-                <div class="columns is-multiline">
-                    <div class="column is-4">
-                        <div class="card">
-                            <div class="card is-shady">
-                                <div class="card-image">
-                                    <figure class="image is-5by3">
-                                        <img src="https://bulma.io/images/placeholders/800x480.png">
-                                    </figure>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <div class="content">
-                                    <h4>Salty Jacket</h4>
-                                    <h6>R1590</h6>
-                                    <span class="button is-link modal-button" data-target="modal-card">View
-                                    more</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <div class="column is-4">
+            <div class="card">
+              <div class="card is-shady">
+                <div class="card-image">
+                  <figure class="image is-5by3">
+                    <img
+                      src="https://bulma.io/images/placeholders/800x480.png"
+                    />
+                  </figure>
                 </div>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <h4>Salty Jacket</h4>
+                  <h6>R1590</h6>
+                  <span
+                    class="button is-link modal-button"
+                    data-target="modal-card"
+                    >View more</span
+                  >
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-{{end}}
+      </div>
+    </div>
+  </section>
+  {{end}}
+</div>
