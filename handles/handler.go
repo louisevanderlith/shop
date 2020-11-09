@@ -75,12 +75,13 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 
 	gmw := open.NewGhostware(CredConfig)
 	r.HandleFunc("/", gmw.GhostMiddleware(Index(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/{pagesize:[A-Z][0-9]+}", open.LoginMiddleware(v, SearchAds(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", open.LoginMiddleware(v, SearchAds(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/{key:[0-9]+\\x60[0-9]+}", open.LoginMiddleware(v, ViewAd(tmpl))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}", gmw.GhostMiddleware(GetCategoryAds(tmpl))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}", gmw.GhostMiddleware(SearchAds(tmpl))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", gmw.GhostMiddleware(SearchAds(tmpl))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}/{key:[0-9]+\\x60[0-9]+}", gmw.GhostMiddleware(ViewAd(tmpl))).Methods(http.MethodGet)
 
-	r.HandleFunc("/cart", open.LoginMiddleware(v, Cart(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/create", open.LoginMiddleware(v, Create(tmpl))).Methods(http.MethodGet)
+	r.HandleFunc("/cart", gmw.GhostMiddleware(Cart(tmpl))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}/create", open.LoginMiddleware(v, Create(tmpl))).Methods(http.MethodGet)
 
 	return r
 }
@@ -88,11 +89,13 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 func FullMenu() *menu.Menu {
 	m := menu.NewMenu()
 
-	m.AddItem(menu.NewItem("a", "/regions", "Regions", nil))
-	m.AddItem(menu.NewItem("b", "/stock/parts", "Parts", nil))
-	m.AddItem(menu.NewItem("b", "/stock/vehicles", "Vehicles", nil))
-	m.AddItem(menu.NewItem("b", "/vin", "VIN Numbers", nil))
+	m.AddItem(menu.NewItem("b", "/cart", "Cart", nil))
 	m.AddItem(menu.NewItem("e", "/clients", "Clients", nil))
+	m.AddItem(menu.NewItem("a", "/orders", "Orders", nil))
+
+	//TODO: Add categories as children
+	m.AddItem(menu.NewItem("b", "/stock", "Sell", nil))
+	m.AddItem(menu.NewItem("g", "/ads", "Buy", nil))
 
 	return m
 }

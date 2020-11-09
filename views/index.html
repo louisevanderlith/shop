@@ -93,10 +93,29 @@
                         <span class="icon is-small"><i class="fas fa-heart"></i></span>
                       </a>
                     </div>
-                  </nav>
+                    <div class="card-content">
+                        <div class="content">
+                            <h4>{{.Folio.SectionA.Heading}}</h4>
+                            <p>
+                                {{.Folio.SectionA.Text}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="media-right">
-                  <button class="delete"></button>
+            </div>
+            <div class="column is-8">
+                <div class="card is-shady">
+                    <div class="card-image has-text-centered">
+                        <i class=""></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <h4>{{.Folio.SectionB.Heading}}</h4>
+                            <p>
+                                {{.Folio.SectionB.Text}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
               </article>
             </div>
