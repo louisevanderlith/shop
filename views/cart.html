@@ -1,27 +1,64 @@
 {{template "master.html" .}} {{define "layoutcontent"}}
-<section class="container">
-  <div class="columns is-multiline">
-    <div class="column">
-      <div class="columns is-multiline">
-        <div class="box">
-          <div class="column is-2">
-            <figure class="image is-128x128">
-              <img src="https://bulma.io/images/placeholders/128x128.png" />
-            </figure>
-          </div>
-          <div class="column is-6">Item is lekker</div>
-        </div>
+<div class="container">
+  <div class="columns">
+    <div class="column is-8">
+      <div class="content">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <figure class="image is-128x128">
+                  <img src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </td>
+              <td>R99</td>
+              <td>
+                <div class="level">
+                  <div class="level-left">
+                    <button class="button level-item"><i class="fa fa-minus"></i></button>
+                  </div>
+                  <div>
+                    <input class="input is-small level-item" type="text" value="1">
+                  </div>
+                  <div class="level-left">
+                    <button class="button level-item"><i class="fa fa-plus"></i></button>
+                  </div>
+                </div>
+              </td>
+              <td>R99</td>
+              <td><button class="button"><i class="fa fa-trash"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="column is-3 right-image" data-aos="fade-left">
-      <div class="box">
-        <div class="content">
-          <p class="sub-title">Cart Summary</p>
-          <p class="content">Total</p>
-          <a class="button"> Proceed </a>
+    <div class="column is-4">
+      <div class="container mt-5">
+        <div class="column is-12">
+          <div class="box">
+            <div class="content">
+              <h1>Cart Summary</h1>
+              <p>Sub Total <span>R99</span></p>
+              <p>Shipping Cost <span>R100</span></p>
+              <h2>Grand Total <span>R199</span></h2>
+            </div>
+            <div>
+              <button class="button">Update Cart</button>
+              <button class="button">Checkout</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  {{end}}
-</section>
+</div>
+{{end}}

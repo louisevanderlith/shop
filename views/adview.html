@@ -1,90 +1,51 @@
 {{template "master.html" .}} {{define "layoutcontent"}}
-<section class="section" id="about">
-  <div class="columns has-same-height is-gapless">
-    <div class="column">
-      <!-- Profile picture -->
+<div class="container">
+  <div class="columns is-multiline">
+    <div class="column is-6">
       <div class="card">
         <div class="card-image">
-          <figure class="image is-5by4">
-            <img
-              src="https://source.unsplash.com/random/1280x960"
-              alt="Placeholder image"
-            />
+          <figure class="image is-4by3">
+            <img src="https://source.unsplash.com/random/1280x960" alt="Placeholder image">
           </figure>
         </div>
       </div>
-    </div>
-    <div class="column">
-      <div class="card">
-        <div class="card-content">
-          <h3 class="title is-4">{{.}}</h3>
 
+    </div>
+    <div class="column is-6">
+      <div class="content">
+        <h4 class="is-title">Product Name</h4>
+        <h6 class="is-subtitle">R55.00</h6>
+        <p class="subtitle">beskrywing </p>
+        <div class="content">
+
+          Sizes / Kleure / whatever
+
+        </div>
+        <p class="is-size-5">7 in stock</p>
+        <form action="" method="get">
           <div class="content">
-            <table class="table-profile">
-              <tr>
-                <th colspan="1"></th>
-              </tr>
-              <tr>
-                <div class="content">
-                  <p>In Stock</p>
-                </div>
-              </tr>
-              <tr>
-                <td>
-                  <div class="dropdown">
-                    <div class="dropdown-trigger">
-                      <button
-                        class="button"
-                        aria-haspopup="true"
-                        aria-controls="dropdown-menu3"
-                      >
-                        <span>Colours</span>
-                        <span class="icon is-small">
-                          <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                      </button>
-                    </div>
-                    <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-                      <div class="dropdown-content">
-                        <a href="#" class="dropdown-item"> Blue </a>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="field has-addons">
-                    <p class="control">
-                      <button class="button">
-                        <span>Size</span>
-                      </button>
-                    </p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button class="button is-success">
-                    <span class="icon is-small">
-                      <i class="fas fa-shopping-cart"></i>
-                    </span>
-                    <span>Add to cart</span>
-                  </button>
-                </td>
-              </tr>
-            </table>
+            <div class="level">
+              <div class="level-left">
+                <p class="level-item" for="quantity">Quantity:</p>
+              </div>
+              <div class="control level-item px-3 py-3">
+                <input class="input" type="text" placeholder="Small input">
+              </div>
+              <div class="level-right">
+                <button type="submit" class="button level-item" value="Order Now!">Add</button>
+              </div>
+            </div>
           </div>
-          <br />
+        </form>
+        <div class="content pt-4">
+          <h6>Category: <span><a href="#">Pants</a>,<a href="#">Women</a>,<a href="#">Lifestyle</a></span></h6>
+          <div class="content py-4">
+            <h6>Share: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                    class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-<section class="section" id="services">
-  <div class="section-heading">
-    <h4 class="subtitle colourSecondary is-5">Product description</h4>
-  </div>
-  <div class="container"></div>
-</section>
+</div>
 {{end}}
