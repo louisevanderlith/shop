@@ -9,7 +9,7 @@ require (
 	github.com/louisevanderlith/house v1.0.0
 	github.com/louisevanderlith/husk v1.7.6
 	github.com/louisevanderlith/parts v1.0.1
-	github.com/louisevanderlith/stock v1.0.3
+	github.com/louisevanderlith/stock v1.0.6
 	github.com/louisevanderlith/theme v1.0.1
 	github.com/louisevanderlith/utility v1.0.1
 	github.com/louisevanderlith/vehicle v1.0.10
