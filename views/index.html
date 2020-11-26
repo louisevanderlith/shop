@@ -1,10 +1,9 @@
 {{template "master.html" .}} {{define "layoutcontent"}}
 <!-- Begin Header -->
 <div class="header-wrapper" id="home">
-  {{template "searchmenu.html" .}}
+  {{template "topmenu.html" .}}
   <!-- Begin Hero -->
   <section class="hero is-medium herocolour">
-    {{template "mobilenav.html" .}}
     <!-- Begin Hero Content-->
     <div class="hero-body"
       style="background-image: url('{{ index .Endpoints "artifact"}}/download/{{.Folio.Banner.Background}}'); background:linear-gradient(rgba(0, 0, 1, 0.4), rgba(0, 0, 2, 0.40)), rgba(0, 0, 0, 0.4) url('{{ index .Endpoints "artifact"}}/download/{{.Folio.Banner.Background}}') no-repeat;">
@@ -14,28 +13,111 @@
           <b>{{.Folio.Banner.Subtitle}}</b></h1>
       </div>
     </div>
-    {{template "cleanmenu.html" .}}
   </section>
 </div>
-
+<div class="container has-text-centered py-3 my-3">
+    <h2 class="subtitle"><strong>WELCOME TO SHOP</strong></h2>
+    <h4>
+    Step into our universe, where the latest trends meet exceptional value! Shop our selection of stuff,
+    from a host of local suppliers and international brands, shop.com - when you want more!
+  </h4>
+</div>
 <!-- End Header -->
 <div class="section-light about-me px-2" id="about-me">
   <div class="columns is-multiline">
-    <div class="column is-6 has-vertically-aligned-content" data-aos="fade-right">
-      <div class="card">
+    <div class="column is-4">
+      <div class="card large">
         <div class="card-image">
-          <figure class="image is-3by2">
-            <img src="{{ index .Endpoints "artifact"}}/download/{{.Folio.SectionA.ImageKey}}" alt="" />
+          <figure class="image is-640x320">
+            <img src="https://bulma.io/images/placeholders/640x320.png">
           </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content has-text-centered">
+              <a href="facebook.com" class="title is-4 no-padding">Category</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="column is-6 has-vertically-aligned-content" data-aos="fade-left">
-      <div class="card">
+    <div class="column is-4">
+      <div class="card large">
         <div class="card-image">
-          <figure class="image is-3by2">
-            <img src="{{ index .Endpoints "artifact"}}/download/{{.Folio.SectionB.ImageKey}}" alt="" />
+          <figure class="image is-640x320">
+            <img src="https://bulma.io/images/placeholders/640x320.png">
           </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <a href="facebook.com" class="title is-4 no-padding">Category</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-4">
+      <div class="card large">
+        <div class="card-image">
+          <figure class="image is-640x320">
+            <img src="https://bulma.io/images/placeholders/640x320.png">
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <a href="facebook.com" class="title is-4 no-padding">Category</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-4">
+      <div class="card large">
+        <div class="card-image">
+          <figure class="image is-640x320">
+            <img src="https://bulma.io/images/placeholders/640x320.png">
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <a href="facebook.com" class="title is-4 no-padding">Category</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-4">
+      <div class="card large">
+        <div class="card-image">
+          <figure class="image is-640x320">
+            <img src="https://bulma.io/images/placeholders/640x320.png">
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <a href="facebook.com" class="title is-4 no-padding">Category</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-4">
+      <div class="card large">
+        <div class="card-image">
+          <figure class="image is-640x320">
+            <img src="https://bulma.io/images/placeholders/640x320.png">
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <a href="facebook.com" class="title is-4 no-padding">Category</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -43,44 +125,8 @@
 </div>
 <hr>
 <section class="container">
-  <div class="columns is-multiline">
-    <div class="column">
-      <div class="columns is-multiline">
-        <div class="column is-6">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image is-640x320">
-                <img src="https://bulma.io/images/placeholders/640x320.png">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <a href="facebook.com" class="title is-4 no-padding">Category</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="column is-3 right-image" data-aos="fade-left">
-      <p class="title">Get it</p>
-      <p class="subtitle colourSecondary">Quick search</p>
-      <div class="list is-hoverable">
-        <a class="list-item"> Salty Safari wear </a>
-        <a class="list-item"> Eye & head Protection </a>
-        <a class="list-item"> Overalls </a>
-        <a class="list-item"> Hand protection </a>
-        <a class="list-item"> Boots & Safety Shoes </a>
-        <a class="list-item"> Road Safety Equipment </a>
-        <a class="list-item"> Disposable workwear </a>
-        <a class="list-item"> Freezer wear </a>
-        <a class="list-item"> Respiratory protection </a>
-        <a class="list-item"> Welding Accesories </a>
-      </div>
-    </div>
-  </div>
+
+
   <div class="columns features px-3 py-3">
     <div class="column is-4">
       <div class="card is-shady">
