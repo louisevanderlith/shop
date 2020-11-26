@@ -3,7 +3,7 @@ module github.com/louisevanderlith/shop
 require (
 	github.com/coreos/go-oidc v2.2.1+incompatible
 	github.com/gorilla/mux v1.8.0
-	github.com/louisevanderlith/droxolite v1.16.8
+	github.com/louisevanderlith/droxolite v1.19.2
 	github.com/louisevanderlith/folio v1.0.9
 	github.com/louisevanderlith/funds v1.0.0
 	github.com/louisevanderlith/house v1.0.0

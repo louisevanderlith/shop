@@ -11,7 +11,7 @@ func GetCredits(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Credits", tmpl, "./views/xchange/credits.html")
 	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		err := mix.Write(w, pge.Create(r, nil))
@@ -25,7 +25,7 @@ func GetCredits(tmpl *template.Template) http.HandlerFunc {
 func SearchCredits(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Credits", tmpl, "./views/xchange/credits.html")
 	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		err := mix.Write(w, pge.Create(r, nil))
@@ -40,7 +40,7 @@ func ViewCredits(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("CreditsView", tmpl, "./views/xchange/creditview.html")
 	pge.AddMenu(FullMenu())
 	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(CredConfig.ClientID))
+	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
 	pge.AddModifier(ThemeContentMod())
 	return func(w http.ResponseWriter, r *http.Request) {
 
