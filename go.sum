@@ -132,9 +132,8 @@ github.com/louisevanderlith/droxolite v1.16.1 h1:VY1Dm1QNmbsX9ZaqpeOB6ZcQpieDx8s
 github.com/louisevanderlith/droxolite v1.16.1/go.mod h1:2ylmRYlHsT9J3/YFcP3zHq703l8x4Nv68dquian/Whg=
 github.com/louisevanderlith/droxolite v1.16.7 h1:v7qrns8kHmy2CVyOjPFMEX6HLSO7SM3F8A1kDhVuvK4=
 github.com/louisevanderlith/droxolite v1.16.7/go.mod h1:Qc1b6TuO10svdFXsk5Tggo7eNI+gcGa9VjcKedKIFNU=
-github.com/louisevanderlith/droxolite v1.19.1/go.mod h1:mpVaXNgNd1rrSex8eH8Fllx+aRr6DPgGsNhJI6j6ftE=
-github.com/louisevanderlith/droxolite v1.19.2 h1:ouJJ2flCxMw6zN9MLTln5SHLo3/Dw+EDoBBbONbPitc=
-github.com/louisevanderlith/droxolite v1.19.2/go.mod h1:mpVaXNgNd1rrSex8eH8Fllx+aRr6DPgGsNhJI6j6ftE=
+github.com/louisevanderlith/droxolite v1.19.3 h1:JmXrhJ5IOcQ3abc/GHRN5FlnJrujmbU1ZzirapUyiXE=
+github.com/louisevanderlith/droxolite v1.19.3/go.mod h1:mpVaXNgNd1rrSex8eH8Fllx+aRr6DPgGsNhJI6j6ftE=
 github.com/louisevanderlith/folio v1.0.9 h1:Vl7cqD9HIBTQahWvYN/DJH5p3d/39rZEQ7Dfp7of+0s=
 github.com/louisevanderlith/folio v1.0.9/go.mod h1:H1FXBO3YUvn2PSGtxn+7ukzLgovAFSDR84ICprWRM0c=
 github.com/louisevanderlith/funds v1.0.0 h1:4ixj5GCLiAffEkOMmlAifhOGJuDeJms0x/pl5qiQ2II=
@@ -149,8 +148,8 @@ github.com/louisevanderlith/parts v1.0.1 h1:cyAFF0BC+CEuUQn1LL94DmBje+OmViA0IFHX
 github.com/louisevanderlith/parts v1.0.1/go.mod h1:uH0FQOFadElTCk98HyvfyQm/7jlyKn7Baluo4BTgRfo=
 github.com/louisevanderlith/stock v1.0.1 h1:+VhVUdW13hhIGYHe3oFFNhSkE9eIypybNqMrxSzX6iw=
 github.com/louisevanderlith/stock v1.0.1/go.mod h1:03n8k59XB3GHMNtSSYAp9TfMoKat7W+3zEEHnJIF3UY=
-github.com/louisevanderlith/stock v1.0.6 h1:EQF37GDzFyEaGnrSmA7wxXRe0xXXLdAG3tt3j9jdbFQ=
-github.com/louisevanderlith/stock v1.0.6/go.mod h1:fiYEwmju1dsJ/3X46uwAC6mNCfijn2XlkkH4gb/r6ow=
+github.com/louisevanderlith/stock v1.0.8 h1:Vwpzk4nDqqVRwyoU+RywPt/amLE0lZxs1LkmM6WyjxU=
+github.com/louisevanderlith/stock v1.0.8/go.mod h1:jxA6KLoyJh20LS6cXOefJiQLue5xGnqjohMLoQ9rixk=
 github.com/louisevanderlith/theme v1.0.1 h1:nAX/YvSYu4FRBXPYxf9zqNE51GPjig0S7o83XVEpJeE=
 github.com/louisevanderlith/theme v1.0.1/go.mod h1:pe2AmbkKt/AaEdI7ZxYJqrlwzc3cly6pYeJBoxaos1s=
 github.com/louisevanderlith/utility v1.0.1 h1:PrZbrjP/piPCkmmOSl6t9/bXmDgZUzfzVjEtIsqsXPw=
