@@ -2,23 +2,17 @@ package handles
 
 import (
 	"github.com/louisevanderlith/droxolite/mix"
-	"html/template"
 	"log"
 	"net/http"
 )
 
-func Cart(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Cart", tmpl, "./views/cart.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func Cart(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		pge.ChangeTitle("Cart")
-		err := mix.Write(w, pge.Create(r, nil))
+		//pge.ChangeTitle("Cart")
+		err := mix.Write(w, fact.Create(r, "Cart", "./views/cart.html", nil))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
