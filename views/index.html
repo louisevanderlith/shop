@@ -1,28 +1,29 @@
 {{template "master.html" .}} {{define "layoutcontent"}}
-    <!-- Begin Header -->
-    <div class="header-wrapper" id="home">
-        {{template "topmenu.html" .}}
-        <!-- Begin Hero -->
-        <section class="hero is-medium herocolour">
-            <!-- Begin Hero Content-->
-            <div class="hero-body"
-                 style="background-image: url('{{ index .Endpoints "artifact"}}/download/{{.Folio.Banner.Background}}'); background:linear-gradient(rgba(0, 0, 1, 0.4), rgba(0, 0, 2, 0.40)), rgba(0, 0, 0, 0.4) url('{{ index .Endpoints "artifact"}}/download/{{.Folio.Banner.Background}}') no-repeat;">
-                <div class="container has-text-centered">
-                    <h2 class="title colourTertiary is-1">{{.Folio.Banner.Heading}}</h2>
-                    <h1 class="subtitle colourPrimary profession is-3">
-                        <b>{{.Folio.Banner.Subtitle}}</b></h1>
-                </div>
+<!-- Begin Header -->
+<div class="header-wrapper" id="home">
+    {{template "topmenu.html" .}}
+    <!-- Begin Hero -->
+    <section class="hero is-medium herocolour">
+        <!-- Begin Hero Content-->
+        <div class="hero-body"
+            style="background-image: url('{{ index .Endpoints "artifact"}}/download/{{.Folio.Banner.Background}}'); background:linear-gradient(rgba(0, 0, 1, 0.4), rgba(0, 0, 2, 0.40)), rgba(0, 0, 0, 0.4) url('{{ index .Endpoints "artifact"}}/download/{{.Folio.Banner.Background}}') no-repeat;">
+            <div class="container has-text-centered">
+                <h2 class="title colourTertiary is-1">{{.Folio.Banner.Heading}}</h2>
+                <h1 class="subtitle colourPrimary profession is-3">
+                    <b>{{.Folio.Banner.Subtitle}}</b></h1>
             </div>
-        </section>
-    </div>
-    <div class="container has-text-centered py-3 my-3">
-        <h2 class="subtitle"><strong>WELCOME TO SHOP</strong></h2>
-        <h4>
-            Step into our universe, where the latest trends meet exceptional value! Shop our selection of stuff,
-            from a host of local suppliers and international brands, shop.com - when you want more!
-        </h4>
-    </div>
-    <!-- End Header -->
+        </div>
+    </section>
+</div>
+<div class="container has-text-centered py-3 my-3">
+    <h2 class="subtitle"><strong>WELCOME TO SHOP</strong></h2>
+    <h4>
+        Step into our universe, where the latest trends meet exceptional value! Shop our selection of stuff,
+        from a host of local suppliers and international brands, shop.com - when you want more!
+    </h4>
+</div>
+<!-- End Header -->
+<div class="container">
     <div class="section-light about-me px-2" id="about-me">
         <div class="columns is-multiline">
             <div class="column is-4">
@@ -123,39 +124,40 @@
             </div>
         </div>
     </div>
-    <hr>
-    <section class="container">
-        <div class="columns features px-3 py-3">
-            <div class="column is-4">
-                <div class="card is-shady">
-                    <div class="card-image has-text-centered">
-                        <i class=""></i>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <h4>{{.Folio.SectionA.Heading}}</h4>
-                            <p>
-                                {{.Folio.SectionA.Text}}
-                            </p>
-                        </div>
-                    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="columns features px-3 py-3">
+        <div class="column is-4">
+            <div class="card is-shady">
+                <div class="card-image has-text-centered">
+                    <i class=""></i>
                 </div>
-            </div>
-            <div class="column is-8">
-                <div class="card is-shady">
-                    <div class="card-image has-text-centered">
-                        <i class=""></i>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <h4>{{.Folio.SectionB.Heading}}</h4>
-                            <p>
-                                {{.Folio.SectionB.Text}}
-                            </p>
-                        </div>
+                <div class="card-content">
+                    <div class="content">
+                        <h4>{{.Folio.SectionA.Heading}}</h4>
+                        <p>
+                            {{.Folio.SectionA.Text}}
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="column is-8">
+            <div class="card is-shady">
+                <div class="card-image has-text-centered">
+                    <i class=""></i>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        <h4>{{.Folio.SectionB.Heading}}</h4>
+                        <p>
+                            {{.Folio.SectionB.Text}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {{end}}
