@@ -6,17 +6,11 @@ import (
 	"github.com/louisevanderlith/husk/keys"
 	"github.com/louisevanderlith/utility/api"
 	"golang.org/x/oauth2"
-	"html/template"
 	"log"
 	"net/http"
 )
 
-func ViewService(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Service View", tmpl, "./views/stock/serviceview.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func ViewService(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
@@ -28,7 +22,7 @@ func ViewService(tmpl *template.Template) http.HandlerFunc {
 
 		tkn := r.Context().Value("Token").(oauth2.Token)
 		clnt := AuthConfig.Client(r.Context(), &tkn)
-		result, err := api.FetchAllServices(clnt, Endpoints["stock"], key.String())
+		data, err := api.FetchAllServices(clnt, Endpoints["stock"], key.String())
 
 		if err != nil {
 			log.Println("Fetch Service Error", err)
@@ -36,7 +30,7 @@ func ViewService(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		err = mix.Write(w, pge.Create(r, result))
+		err = mix.Write(w, fact.Create(r, "Service View", "./views/stock/serviceview.html", mix.NewDataBag(data)))
 
 		if err != nil {
 			log.Println("Serve Error", err)

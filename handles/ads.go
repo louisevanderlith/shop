@@ -6,22 +6,15 @@ import (
 	"github.com/louisevanderlith/husk/keys"
 	"github.com/louisevanderlith/stock/api"
 	"golang.org/x/oauth2"
-	"html/template"
 	"log"
 	"net/http"
 )
 
-func GetAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func GetAds(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-
 		tkn := r.Context().Value("Token").(oauth2.Token)
 		clnt := AuthConfig.Client(r.Context(), &tkn)
-		result, err := api.FetchAllCategories(clnt, Endpoints["stock"], "A10")
+		data, err := api.FetchAllCategories(clnt, Endpoints["stock"], "A10")
 
 		if err != nil {
 			log.Println("Fetch Clothing Error", err)
@@ -35,7 +28,7 @@ func GetAds(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		err = mix.Write(w, pge.Create(r, result))
+		err = mix.Write(w, fact.Create(r, "Ads", "./views/results.html", mix.NewDataBag(data)))
 
 		if err != nil {
 			log.Println(err)
@@ -43,17 +36,12 @@ func GetAds(tmpl *template.Template) http.HandlerFunc {
 	}
 }
 
-func GetCategoryAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func GetCategoryAds(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		category := drx.FindParam(r, "category")
 		tkn := r.Context().Value("Token").(oauth2.Token)
 		clnt := AuthConfig.Client(r.Context(), &tkn)
-		result, err := api.FetchCategoryItems(clnt, Endpoints["stock"], category, "A10")
+		data, err := api.FetchCategoryItems(clnt, Endpoints["stock"], category, "A10")
 
 		if err != nil {
 			log.Println("Fetch Clothing Error", err)
@@ -61,7 +49,7 @@ func GetCategoryAds(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		err = mix.Write(w, pge.Create(r, result))
+		err = mix.Write(w, fact.Create(r, "Ads", "./views/results.html", mix.NewDataBag(data)))
 
 		if err != nil {
 			log.Println("Serve Error", err)
@@ -69,18 +57,13 @@ func GetCategoryAds(tmpl *template.Template) http.HandlerFunc {
 	}
 }
 
-func SearchAds(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/results.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func SearchAds(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		category := drx.FindParam(r, "category")
 		pagesize := drx.FindParam(r, "pagesize")
 		tkn := r.Context().Value("Token").(oauth2.Token)
 		clnt := AuthConfig.Client(r.Context(), &tkn)
-		result, err := api.FetchCategoryItems(clnt, Endpoints["stock"], category, pagesize)
+		data, err := api.FetchCategoryItems(clnt, Endpoints["stock"], category, pagesize)
 
 		if err != nil {
 			log.Println("Fetch Items Error", err)
@@ -88,7 +71,7 @@ func SearchAds(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		err = mix.Write(w, pge.Create(r, result))
+		err = mix.Write(w, fact.Create(r, "Ads", "./views/results.html", mix.NewDataBag(data)))
 
 		if err != nil {
 			log.Println("Serve Error", err)
@@ -96,12 +79,7 @@ func SearchAds(tmpl *template.Template) http.HandlerFunc {
 	}
 }
 
-func ViewAd(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Ads", tmpl, "./views/adview.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func ViewAd(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		category := drx.FindParam(r, "category")
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
@@ -114,7 +92,7 @@ func ViewAd(tmpl *template.Template) http.HandlerFunc {
 
 		tkn := r.Context().Value("Token").(oauth2.Token)
 		clnt := AuthConfig.Client(r.Context(), &tkn)
-		result, err := api.FetchStockItem(clnt, Endpoints["stock"], category, key)
+		data, err := api.FetchStockItem(clnt, Endpoints["stock"], category, key)
 
 		if err != nil {
 			log.Println("Fetch Item Error", err)
@@ -122,7 +100,7 @@ func ViewAd(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		err = mix.Write(w, pge.Create(r, result))
+		err = mix.Write(w, fact.Create(r, "Ad View", "./views/adview.html", mix.NewDataBag(data)))
 
 		if err != nil {
 			log.Println("Serve Error", err)

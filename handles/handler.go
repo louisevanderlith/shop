@@ -71,14 +71,21 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 	r.HandleFunc("/callback", lock.Callback).Methods(http.MethodGet)
 
 	gmw := open.NewGhostware(credConfig)
-	r.HandleFunc("/", gmw.GhostMiddleware(Index(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}", gmw.GhostMiddleware(GetCategoryAds(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}", gmw.GhostMiddleware(SearchAds(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", gmw.GhostMiddleware(SearchAds(tmpl))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}/{key:[0-9]+\\x60[0-9]+}", gmw.GhostMiddleware(ViewAd(tmpl))).Methods(http.MethodGet)
 
-	r.HandleFunc("/cart", gmw.GhostMiddleware(Cart(tmpl))).Methods(http.MethodGet)
-	r.Handle("/{category:[a-zA-Z]+}/create", lock.Middleware(Create(tmpl))).Methods(http.MethodGet)
+	fact := mix.NewPageFactory(tmpl)
+	fact.AddMenu(FullMenu())
+	fact.AddModifier(mix.EndpointMod(Endpoints))
+	fact.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
+	fact.AddModifier(ThemeContentMod())
+
+	r.HandleFunc("/", gmw.GhostMiddleware(Index(fact))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}", gmw.GhostMiddleware(GetCategoryAds(fact))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}", gmw.GhostMiddleware(SearchAds(fact))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", gmw.GhostMiddleware(SearchAds(fact))).Methods(http.MethodGet)
+	r.HandleFunc("/{category:[a-zA-Z]+}/{key:[0-9]+\\x60[0-9]+}", gmw.GhostMiddleware(ViewAd(fact))).Methods(http.MethodGet)
+
+	r.HandleFunc("/cart", gmw.GhostMiddleware(Cart(fact))).Methods(http.MethodGet)
+	r.Handle("/{category:[a-zA-Z]+}/create", lock.Middleware(Create(fact))).Methods(http.MethodGet)
 
 	return r
 }
@@ -98,7 +105,7 @@ func FullMenu() *menu.Menu {
 }
 
 func ThemeContentMod() mix.ModFunc {
-	return func(f mix.MixerFactory, r *http.Request) {
+	return func(b mix.Bag, r *http.Request) {
 		clnt := credConfig.Client(r.Context())
 
 		content, err := folio.FetchDisplay(clnt, Endpoints["folio"])
@@ -109,6 +116,6 @@ func ThemeContentMod() mix.ModFunc {
 			return
 		}
 
-		f.SetValue("Folio", content)
+		b.SetValue("Folio", content)
 	}
 }

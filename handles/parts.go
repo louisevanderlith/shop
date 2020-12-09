@@ -6,17 +6,11 @@ import (
 	"github.com/louisevanderlith/husk/keys"
 	"github.com/louisevanderlith/parts/api"
 	"golang.org/x/oauth2"
-	"html/template"
 	"log"
 	"net/http"
 )
 
-func ViewPart(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Part View", tmpl, "./views/stock/partview.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func ViewPart(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
@@ -28,7 +22,7 @@ func ViewPart(tmpl *template.Template) http.HandlerFunc {
 
 		tkn := r.Context().Value("Token").(oauth2.Token)
 		clnt := AuthConfig.Client(r.Context(), &tkn)
-		result, err := api.FetchSpare(clnt, Endpoints["stock"], key)
+		data, err := api.FetchSpare(clnt, Endpoints["stock"], key)
 
 		if err != nil {
 			log.Println("Fetch Part Error", err)
@@ -36,7 +30,7 @@ func ViewPart(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		err = mix.Write(w, pge.Create(r, result))
+		err = mix.Write(w, fact.Create(r, "Part View", "./views/stock/partview.html", mix.NewDataBag(data)))
 
 		if err != nil {
 			log.Println("Serve Error", err)

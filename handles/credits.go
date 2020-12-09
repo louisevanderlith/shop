@@ -2,19 +2,14 @@ package handles
 
 import (
 	"github.com/louisevanderlith/droxolite/mix"
-	"html/template"
 	"log"
 	"net/http"
 )
 
-func GetCredits(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Credits", tmpl, "./views/xchange/credits.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
+func GetCredits(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		err := mix.Write(w, pge.Create(r, nil))
+		err := mix.Write(w, fact.Create(r, "Credits", "./views/xchange/credits.html", nil))
 
 		if err != nil {
 			log.Println("Serve Error", err)
@@ -22,13 +17,10 @@ func GetCredits(tmpl *template.Template) http.HandlerFunc {
 	}
 }
 
-func SearchCredits(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("Credits", tmpl, "./views/xchange/credits.html")
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
+func SearchCredits(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		err := mix.Write(w, pge.Create(r, nil))
+		err := mix.Write(w, fact.Create(r, "Credits", "./views/xchange/credits.html", nil))
 
 		if err != nil {
 			log.Println("Serve Error", err)
@@ -36,12 +28,7 @@ func SearchCredits(tmpl *template.Template) http.HandlerFunc {
 	}
 }
 
-func ViewCredits(tmpl *template.Template) http.HandlerFunc {
-	pge := mix.PreparePage("CreditsView", tmpl, "./views/xchange/creditview.html")
-	pge.AddMenu(FullMenu())
-	pge.AddModifier(mix.EndpointMod(Endpoints))
-	pge.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
-	pge.AddModifier(ThemeContentMod())
+func ViewCredits(fact mix.MixerFactory) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		//key, err := keys.ParseKey(drx.FindParam(r, "key"))
@@ -60,7 +47,7 @@ func ViewCredits(tmpl *template.Template) http.HandlerFunc {
 		//	return
 		//}
 
-		err := mix.Write(w, pge.Create(r, nil))
+		err := mix.Write(w, fact.Create(r, "CreditsView", "./views/xchange/creditview.html", nil))
 
 		if err != nil {
 			log.Println("Serve Error", err)
