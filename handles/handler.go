@@ -37,7 +37,7 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 		ClientSecret: clientSecret,
 		Endpoint:     provider.Endpoint(),
 		RedirectURL:  host + "/callback",
-		Scopes:       []string{oidc.ScopeOpenID},
+		Scopes:       []string{oidc.ScopeOpenID, oidc.ScopeOfflineAccess},
 	}
 
 	credConfig = &clientcredentials.Config{
@@ -65,12 +65,12 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 	fs := http.FileServer(distPath)
 	r.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", fs))
 
-	lock := open.NewUILock(provider, AuthConfig)
+	lock := open.NewHybridLock(provider, credConfig, AuthConfig)
 
 	r.HandleFunc("/login", lock.Login).Methods(http.MethodGet)
 	r.HandleFunc("/callback", lock.Callback).Methods(http.MethodGet)
-
-	gmw := open.NewGhostware(credConfig)
+	r.HandleFunc("/logout", lock.Logout).Methods(http.MethodGet)
+	r.HandleFunc("/refresh", lock.Refresh).Methods(http.MethodGet)
 
 	fact := mix.NewPageFactory(tmpl)
 	fact.AddMenu(FullMenu())
@@ -78,14 +78,16 @@ func SetupRoutes(host, clientId, clientSecret string, endpoints map[string]strin
 	fact.AddModifier(mix.IdentityMod(AuthConfig.ClientID))
 	fact.AddModifier(ThemeContentMod())
 
-	r.HandleFunc("/", gmw.GhostMiddleware(Index(fact))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}", gmw.GhostMiddleware(GetCategoryAds(fact))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}", gmw.GhostMiddleware(SearchAds(fact))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", gmw.GhostMiddleware(SearchAds(fact))).Methods(http.MethodGet)
-	r.HandleFunc("/{category:[a-zA-Z]+}/{key:[0-9]+\\x60[0-9]+}", gmw.GhostMiddleware(ViewAd(fact))).Methods(http.MethodGet)
+	r.Handle("/", lock.Protect(Index(fact))).Methods(http.MethodGet)
+	r.Handle("/cart", lock.Protect(lock.Lock(Cart(fact)))).Methods(http.MethodGet)
 
-	r.HandleFunc("/cart", gmw.GhostMiddleware(Cart(fact))).Methods(http.MethodGet)
-	r.Handle("/{category:[a-zA-Z]+}/create", lock.Middleware(Create(fact))).Methods(http.MethodGet)
+	rcat := r.PathPrefix("/{category:[a-zA-Z]+}").Subrouter()
+	rcat.Handle("", GetCategoryAds(fact)).Methods(http.MethodGet)
+	rcat.Handle("/create", lock.Lock(Create(fact))).Methods(http.MethodGet)
+	rcat.Handle("/{pagesize:[A-Z][0-9]+}", SearchAds(fact)).Methods(http.MethodGet)
+	rcat.Handle("/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", SearchAds(fact)).Methods(http.MethodGet)
+	rcat.Handle("/{key:[0-9]+\\x60[0-9]+}", ViewAd(fact)).Methods(http.MethodGet)
+	rcat.Use(lock.Protect)
 
 	return r
 }
