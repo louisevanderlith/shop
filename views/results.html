@@ -1,35 +1,41 @@
 {{template "layout.html" .}}
 {{define "mainlayout"}}
-<div class="section-light about-me" id="about-me">
-  <div class="container">
-    <div class="columns is-multiline">
-      <div
-        class="column is-6 has-vertically-aligned-content"
-        data-aos="fade-right"
-        style="height: 400px"
-      >
-        **Slideshow category**
-      </div>
-      <div class="column is-6" data-aos="fade-left">
-        <div class="content">
-          <p>***AD OOR SALTY***</p>
-        </div>
-      </div>
-    </div>
+<aside class="menu">
+  <p class="menu-label">
+    Filter
+  </p>
+  <ul class="menu-list">
+    <li><label class="checkbox">
+        <input type="checkbox">
+        Brand?
+      </label>
+    </li>
+    <li>
+      <label class="checkbox">
+        <input type="checkbox">
+        Gender?
+      </label>
+    </li>
+  </ul>
+
+  <p class="menu-label">
+    Price
+  </p>
+  <div>
+    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
   </div>
-</div>
-<div class="section">
-  <div class="container">----</div>
-</div>
+  <p class="menu-label">
+    Transactions
+  </p>
+  <ul class="menu-list">
+    <li><a>Payments</a></li>
+  </ul>
+</aside>
 <div class="section">
   <div class="container">
     <div class="field has-addons">
       <div class="control is-expanded">
-        <input
-          class="input has-text-centered"
-          type="search"
-          placeholder="find your dream car"
-        />
+        <input class="input has-text-centered" type="search" placeholder="find your dream car" />
       </div>
       <div class="control">
         <a class="button is-info">Search</a>
@@ -55,11 +61,7 @@
               <div class="content">
                 <h4>Salty Jacket</h4>
                 <h6>R1590</h6>
-                <span
-                  class="button is-link modal-button"
-                  data-target="modal-card"
-                  >View more</span
-                >
+                <span class="button is-link modal-button" data-target="modal-card">View more</span>
               </div>
             </div>
           </div>
